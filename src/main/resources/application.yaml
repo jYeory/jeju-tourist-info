@@ -1,0 +1,52 @@
+feign:
+  domestic:
+    name: jejuDomesticTourist
+    url: https://open.jejudatahub.net/api/proxy/bt11Daa5at1tat515DDtaa9D5aa99t11
+  foreign:
+    name: jejuForeignTourist
+    url: https://open.jejudatahub.net/api/proxy/12ta2a2t291tDbbabtbD9t1a219tbDbt
+
+spring:
+  cloud:
+    openfeign:
+      autoconfiguration:
+        jackson:
+          enabled: true
+  datasource:
+    url: jdbc:mysql://{host}:{port}/jeju_tourist?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: {username}
+    password:  {password}
+    hikari:
+      auto-commit: false
+      connection-test-query: SELECT 1
+      transaction-isolation: TRANSACTION_READ_UNCOMMITTED
+
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        default_schema: mip
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        connection:
+          handling_mode: DELAYED_ACQUISITION_AND_RELEASE_AFTER_TRANSACTION
+          provider_disables_autocommit: true
+        default_batch_fetch_size: 100
+        show_sql: true
+        format_sql: true
+        generate_statistics: true
+        jdbc:
+          batch_size: 10000
+        order_inserts: true
+        order_updates: true
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.org.hibernate.type.descriptor.sql: TRACE
